@@ -72,7 +72,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     await update.message.reply_text("Cancelou o maiúsculo!")
     return ConversationHandler.END
 
-def main():
+async def main():
     token = os.environ["TOKEN"]
     app = Application.builder().token(token).build()
 
