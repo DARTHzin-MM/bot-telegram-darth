@@ -1,4 +1,5 @@
-import os, asyncio
+import os
+import asyncio
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import (
     Application, CommandHandler, MessageHandler, filters, ContextTypes,
@@ -96,12 +97,19 @@ async def main():
     
     await app.initialize()
     await app.start()
+    port = int(os.environ.get("PORT", 8080))
+    domain = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "bot-telegram-darth.onrender.com")
+    webhook_url = f"https://{domain}/{token}"
+
+    await app.bot.set_webhook(url=webhook_url)
+
     await app.updater.start_webhook(
         listen="0.0.0.0",
         port=port,
         url_path=token,
-        webhook_url=f"https://bot-telegram-darth.onrender.com/{token}"
+        webhook_url=webhook_url
     )
+
     await app.updater.idle()
 
 if __name__ == "__main__":
