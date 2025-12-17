@@ -78,7 +78,11 @@ def main():
 
     conv_handler = ConversationHandler(
         entry_points=[CallbackQueryHandler(caps_click, pattern="^caps$")],
-        states={WAITING_CAPS: [MessageHandler(filters.TEXT & ~filters.COMMAND, receive_caps_text)]},
+        states={
+            WAITING_CAPS: [
+                MessageHandler(filters.TEXT & ~filters.COMMAND, receive_caps_text)
+            ]
+        },
         fallbacks=[CommandHandler("cancel", cancel)],
         per_user=True,
     )
