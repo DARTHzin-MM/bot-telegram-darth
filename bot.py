@@ -103,7 +103,7 @@ async def main():
 
     await app.bot.set_webhook(url=webhook_url)
 
-    await app.updater.start_webhook(
+    await app.start_webhook(
         listen="0.0.0.0",
         port=port,
         url_path=token
