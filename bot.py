@@ -92,14 +92,19 @@ def main():
     app.add_handler(CallbackQueryHandler(other_buttons, pattern="^(contador|fechar)$"))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
 
-    port = int(os.environ.get("PORT", 8080))
+port = int(os.environ.get("PORT", 8080))
     print("Bot iniciado na nuvem!")
-    app.run_webhook(
+    
+    await app.initialize()
+    await app.start()
+    await app.updater.start_webhook(
         listen="0.0.0.0",
         port=port,
         url_path=token,
-        webhook_url=os.environ["RAILWAY_STATIC_URL"] + "/" + token
+        webhook_url=f"https://bot-telegram-darth.onrender.com/{token}"
     )
+    print("Webhook configurado!")
+    await app.updater.idle()
 
 if __name__ == "__main__":
     main()
