@@ -1,4 +1,4 @@
-import os
+import os, asyncio
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import (
     Application, CommandHandler, MessageHandler, filters, ContextTypes,
