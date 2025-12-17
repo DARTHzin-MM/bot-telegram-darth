@@ -106,11 +106,10 @@ async def main():
     await app.updater.start_webhook(
         listen="0.0.0.0",
         port=port,
-        url_path=token,
-        webhook_url=webhook_url
+        url_path=token
     )
 
-    await app.updater.idle()
+    await asyncio.Event().wait()
 
 if __name__ == "__main__":
     asyncio.run(main())
